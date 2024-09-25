@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Форма с выпадающими списками</title>
+  <style>
+    body {
+      padding: 30px 30px 100px;
+      background-color: #18191c;
+      color: #ffffff;
+      font-family: "Roboto", sans-serif;
+      font-size: 18px;
+    }
+
+    form {
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: start;
+    }
+
+
+    label {
+      display: inline-block;
+      width: 150px;
+    }
+
+    select,
+    input {
+      position: relative;
+      width: 400px;
+      border: 1px solid #ffffff;
+      border-radius: 6px;
+      padding: 10px 15px;
+      background-color: #18191c;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 300;
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .select__wrap {
+      position: relative;
+    }
+
+    select:hover,
+    input:hover {
+      outline: none;
+      border: 1px solid #ff8630;
+    }
+
+    .select__wrap::after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 4px);
+      right: 15px;
+      width: 14px;
+      height: 8px;
+      background-image: url(arrow-down.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 1px solid #ff8630;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 300;
+
+      &:hover {
+        background-color: #ff8630;
+      }
+    }
+
+    #json-output {
+      padding: 50px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form id="myForm">
+    <div class="select__wrap">
+      <select id="select1" name="select1">
+        <option value="">--Выберите число--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="select__wrap">
+      <select id="select2" name="select2">
+        <option value="">--Выберите число--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="select__wrap">
+      <select id="select3" name="select3">
+        <option value="">--Выберите число--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="select__wrap">
+      <select id="select4" name="select4">
+        <option value="">--Выберите число--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="select__wrap">
+      <select id="select5" name="select5">
+        <option value="">--Выберите число--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <input type="text" placeholder="Введите текст" id="input1" name="input1">
+    </div>
+    <div class="form-field">
+      <input type="text" placeholder="Введите текст" id="input2" name="input2">
+    </div>
+    <button type="submit">Отправить</button>
+  </form>
+
+  <div id="json-output"></div>
+
+  <script>
+
+    const form = document.getElementById('myForm');
+
+    async function sendDataForm(data) {
+      await new Promise((resolve) => { setTimeout(resolve, 1000) })
+      alert("Успешно")
+      return JSON.stringify(data,null, 4)
+    }
+
+    document.getElementById('myForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      const resolve = await sendDataForm(data);
+      console.log(resolve)
+      form.reset();
+      document.getElementById('json-output').textContent = resolve;
+    });
+  </script>
+
+</body>
+
+</html>
